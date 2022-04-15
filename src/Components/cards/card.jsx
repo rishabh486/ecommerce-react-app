@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { useProduct } from "../Context/product-context";
-import { useCart } from "../Context/cart-context";
+import React from "react";
+import { useProduct } from "../../context/product-context"
 import { favourite_icon } from "../Assets/index";
-import "./product.css";
+import "./card.css";
 function ProductCard() {
   const { items } = useProduct();
  
@@ -11,11 +10,11 @@ function ProductCard() {
     <div>
       {items.map((item) => (
         <div className="product-grid">
-          <div class="card-exit ">
+          <div class="card-exit">
             <div class="card-img">
               <img
                 src="https://assets.myntassets.com/h_720,q_90,w_540/v1/assets/images/16045848/2021/12/13/c42ef067-9fbe-4077-a48c-fca6331796ab1639383810735-Nike-Court-Vision-Low-Mens-Shoes-7251639383810387-1.jpg"
-                class="cross-image "
+                class="cross-image"
               />
             </div>
             <div class="card-content">
