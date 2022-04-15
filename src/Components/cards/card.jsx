@@ -25,7 +25,7 @@ function ProductCard() {
             </div>
             <div class="card-button">
               <button
-                onClick={() => dispatch({ type: "ADD_TO_CART", payload: item })}
+               
                 class="button-container-button primary-button cart"
               >
                 Add To Cart
@@ -34,9 +34,8 @@ function ProductCard() {
             <button class="exit-button">
               <span>
                 <img
-                  onClick={() =>
-                    dispatch({ type: "ADD_TO_WISHLIST", payload: item })
-                  }
+                 
+                  
                   src={favourite_icon}
                   class="exit-button-cross"
                   alt=""
