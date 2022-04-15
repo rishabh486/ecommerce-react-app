@@ -29,23 +29,23 @@ function Sidebar() {
                 </div>
                 <div class="category-container">
                     <label for="user-choice-check">Men's Clothing</label>
-                    <input  onChange={(e) => filterDispatch({ type: "MEN" })}
-                     checked={men}
+                    <input  
+                    
                      value="men"
                      type="checkbox" name="user-choice-check" id="user-choice-check"/>
                 </div>
                 <div class="category-container">
                     <label for="user-choice-check">Women Clothing</label>
-                    <input  onChange={(e) => filterDispatch({ type: "WOMEN" })}
-                      checked={women}
+                    <input 
+                     
                      value="women"
                     type="checkbox" name="user-choice-check" id="user-choice-check"/>
                 </div>
                 <div class="category-container">
                     <label for="user-choice-check">Kids Clothing</label>
-                    <input  onChange={(e) => filterDispatch({ type: "KIDS" })}
+                    <input 
               type="checkbox"
-              checked={kids}
+              
                      name="user-choice-check" id="user-choice-check"/>
                 </div>
                 <div class="category-container">
