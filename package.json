@@ -9,7 +9,14 @@
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "axios": "^0.21.4",
+    "dayjs": "^1.10.7",
+    "jwt-decode": "^3.1.2",
+    "jwt-encode": "^1.0.1",
+    "miragejs": "^0.1.41",
+    "mockman-js": "^1.0.5",
+    "uuid": "^8.3.2"
   },
   "scripts": {
     "start": "react-scripts start",
