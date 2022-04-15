@@ -1,6 +1,6 @@
 import React from "react";
 import { useProduct } from "../../context/product-context"
-import { favourite_icon } from "../Assets/index";
+import { favourite_icon } from "../../Assets/index";
 import "./card.css";
 function ProductCard() {
   const { items } = useProduct();
