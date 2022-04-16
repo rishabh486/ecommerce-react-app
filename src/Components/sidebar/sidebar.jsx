@@ -9,10 +9,7 @@ function Sidebar() {
                     <h1>Filter</h1>
                 </div>
                 <div>
-                    <h1 onClick={() => {
-               
-                filterDispatch({ type: "CLEAR" });
-              }}>Clear</h1>
+                    <h1>Clear</h1>
                 </div>
             </div>
             <div class="price-heading">
