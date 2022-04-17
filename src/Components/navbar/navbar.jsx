@@ -24,7 +24,7 @@ function Navbar() {
                                 </span>
                             </button>
                             <span class="icon-badge-number">
-                                {cartItems}
+                                0
                             </span>
 
                         </div>
