@@ -1,6 +1,6 @@
 import React from 'react'
 import  "./navbar.css"
-import {Link} from "react-router-dom"
+
 function Navbar() {
     return (
  <div> 
@@ -12,7 +12,7 @@ function Navbar() {
         <div class="leftside">
             <div class="links">
                 <a href="/index.html">Home</a>
-                <Link to="/wishlist-page"><a>Whishlist</a></Link>
+                <a>Whishlist</a>
                 <a href="/login.html">Login</a>
                 <a href="/signup.html">Signup</a>
                 <a>
@@ -20,11 +20,11 @@ function Navbar() {
                         <div class="icon-badge">
                             <button type="button" class="icon-button" id="cart-button">
                                 <span>
-                                  <Link to="/cart-page"> <img class="icon-img" src="/Images/icons8-trolley-cart-64.png" /></Link>
+                                  <img class="icon-img" src="/Images/icons8-trolley-cart-64.png" />
                                 </span>
                             </button>
                             <span class="icon-badge-number">
-                                {cartItems}
+                                0
                             </span>
 
                         </div>
