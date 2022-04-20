@@ -1,5 +1,4 @@
 export const initialState = {
-  products: [],
   filter: {
     sortBy: null,
     categoryName: {

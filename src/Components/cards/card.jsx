@@ -2,13 +2,16 @@ import React from "react";
 import { useProduct } from "../../context/product-context"
 import { favourite_icon } from "../../Assets/index";
 import "./card.css";
+import { RatingFilter } from "../../reducers/filter";
 function ProductCard() {
-  const { items } = useProduct();
- 
+  const { items,state } = useProduct();
+  const {filter}=state
+  const{ratings}=filter
+ const RatingData=RatingFilter(items,ratings)
 
   return (
     <div>
-      {items.map((item) => (
+      {RatingData.map((item) => (
         <div className="product-grid">
           <div class="card-exit">
             <div class="card-img">

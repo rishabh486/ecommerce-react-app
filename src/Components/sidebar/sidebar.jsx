@@ -1,6 +1,10 @@
 import React from 'react'
+import { useProduct } from '../../context/product-context'
 import  "./sidebar.css"
 function Sidebar() {
+    const{state,dispatch}=useProduct()
+    const{filter}=state
+
      return (
     <div>
           <div className="side-bar">
@@ -57,21 +61,29 @@ function Sidebar() {
                 </div>
                 <div class="rating-container">
                     <label for="user-choice-radio">4stars & above</label>
-                    <input type="radio" name="user-choice-radio" id="user-choice-radio"/>
+                    <input 
+                    onClick={()=>dispatch({type:"RATING_FILTER",payload:4})}
+                    type="radio" name="user-choice-radio" id="user-choice-radio"/>
                 </div>
                 <div class="rating-container">
                     <label for="user-choice-radio">3stars & above</label>
 
-                    <input type="radio" name="user-choice-radio" id="user-choice-radio"/>
+                    <input 
+                     onClick={()=>dispatch({type:"RATING_FILTER",payload:3})}
+                    type="radio" name="user-choice-radio" id="user-choice-radio"/>
                 </div>
                 <div class="rating-container">
                     <label for="user-choice-radio">2stars & above</label>
-                    <input type="radio" name="user-choice-radio" id="user-choice-radio"/>
+                    <input
+                     onClick={()=>dispatch({type:"RATING_FILTER",payload:2})}
+                     type="radio" name="user-choice-radio" id="user-choice-radio"/>
                 </div>
                 <div class="rating-container">
                     <label for="user-choice-radio">1stars & above</label>
 
-                    <input type="radio" name="user-choice-radio" id="user-choice-radio"/>
+                    <input 
+                     onClick={()=>dispatch({type:"RATING_FILTER",payload:1})}
+                    type="radio" name="user-choice-radio" id="user-choice-radio"/>
                 </div>
 
 
@@ -83,12 +95,16 @@ function Sidebar() {
                 </div>
                 <div class="sort-by-container">
                     <label for="user-choice-radio">Price-Low to High</label>
-                    <input type="radio" name="user-choice-radio" id="user-choice-radio"/>
+                    <input 
+                    onClick={()=>dispatch({type:"SORT",payload:"LOW_TO_HIGH"})}
+                    type="radio" name="user-choice-radio" id="user-choice-radio"/>
                 </div>
                 <div class="sort-by-container">
                     <label for="user-choice-radio">Price-High to low</label>
 
-                    <input type="radio" name="user-choice-radio" id="user-choice-radio"/>
+                    <input 
+                     onClick={()=>dispatch({type:"SORT",payload:"HIGH_TO_LOW"})}
+                    type="radio" name="user-choice-radio" id="user-choice-radio"/>
                 </div>
             </div>
         </div>
