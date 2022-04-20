@@ -19,8 +19,8 @@ function ProductCard() {
             </div>
             <div class="card-content">
               <p class="card-body">{item.title}</p>
-              <span class="price">$50</span>
-              <del class="original-price">$120</del>
+              <span class="price">${item.price}</span>
+              <del class="original-price">$5000</del>
               <b class="discount-price">24% OFF</b>
             </div>
             <div class="card-button">
