@@ -4,6 +4,8 @@ import  "./sidebar.css"
 function Sidebar() {
     const{state,dispatch}=useProduct()
     const{filter}=state
+    const{categoryName}=filter
+    const{men,kids,women,newborn}=categoryName
 
      return (
     <div>
@@ -13,7 +15,7 @@ function Sidebar() {
                     <h1>Filter</h1>
                 </div>
                 <div>
-                    <h1>Clear</h1>
+                    <h1 onClick={()=>dispatch({type:"CLEAR"})}>Clear</h1>
                 </div>
             </div>
             <div class="price-heading">
@@ -31,27 +33,33 @@ function Sidebar() {
                 <div class="category-container">
                     <label for="user-choice-check">Men's Clothing</label>
                     <input  
-                    
+                    checked={men}
+                     onChange={()=>dispatch({type:"FILTER_BY_CATEGORY",payload:"men"})}
                      value="men"
                      type="checkbox" name="user-choice-check" id="user-choice-check"/>
                 </div>
                 <div class="category-container">
                     <label for="user-choice-check">Women Clothing</label>
                     <input 
-                     
+                     checked={women}
+                     onChange={()=>dispatch({type:"FILTER_BY_CATEGORY",payload:"women"})}
                      value="women"
-                    type="checkbox" name="user-choice-check" id="user-choice-check"/>
+                     type="checkbox" name="user-choice-check" id="user-choice-check"/>
                 </div>
                 <div class="category-container">
                     <label for="user-choice-check">Kids Clothing</label>
                     <input 
-              type="checkbox"
-              
-                     name="user-choice-check" id="user-choice-check"/>
+                    type="checkbox"
+                    checked={kids}
+                    onChange={()=>dispatch({type:"FILTER_BY_CATEGORY",payload:"kids"})}
+                    name="user-choice-check" id="user-choice-check"/>
                 </div>
                 <div class="category-container">
                     <label for="user-choice-check">Newborn Clothing</label>
-                    <input type="checkbox" name="user-choice-check" id="user-choice-check"/>
+                    <input 
+                     checked={newborn}
+                     onChange={()=>dispatch({type:"FILTER_BY_CATEGORY",payload:"newborn"})}
+                    type="checkbox" name="user-choice-check" id="user-choice-check"/>
                 </div>
 
             </div>
@@ -96,14 +104,14 @@ function Sidebar() {
                 <div class="sort-by-container">
                     <label for="user-choice-radio">Price-Low to High</label>
                     <input 
-                    onClick={()=>dispatch({type:"SORT",payload:"LOW_TO_HIGH"})}
+                    onClick={()=>dispatch({type:"SORTING",payload:"LOW_TO_HIGH"})}
                     type="radio" name="user-choice-radio" id="user-choice-radio"/>
                 </div>
                 <div class="sort-by-container">
                     <label for="user-choice-radio">Price-High to low</label>
 
                     <input 
-                     onClick={()=>dispatch({type:"SORT",payload:"HIGH_TO_LOW"})}
+                     onClick={()=>dispatch({type:"SORTING",payload:"HIGH_TO_LOW"})}
                     type="radio" name="user-choice-radio" id="user-choice-radio"/>
                 </div>
             </div>

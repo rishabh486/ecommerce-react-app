@@ -2,12 +2,14 @@ import React from "react";
 import { useProduct } from "../../context/product-context"
 import { favourite_icon } from "../../Assets/index";
 import "./card.css";
-import { RatingFilter } from "../../reducers/filter";
+import { filterByCategory, RatingFilter, SortingFilter } from "../../reducers/filter";
 function ProductCard() {
   const { items,state } = useProduct();
   const {filter}=state
-  const{ratings}=filter
- const RatingData=RatingFilter(items,ratings)
+  const{ratings,sortBy,categoryName}=filter
+  const SortedData=SortingFilter(items,sortBy)
+  const CategoryData=filterByCategory(SortedData,categoryName)
+ const RatingData=RatingFilter(CategoryData,ratings)
 
   return (
     <div>
