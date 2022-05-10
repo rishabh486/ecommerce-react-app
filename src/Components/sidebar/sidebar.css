@@ -4,7 +4,7 @@
   justify-content: space-evenly;
   width: 25rem;
   background-color: grey;
-  height: 100vh;
+  height: 100%;
 }
 .side-bar h1 {
   margin: 1rem;

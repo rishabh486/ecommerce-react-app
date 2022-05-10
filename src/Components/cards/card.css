@@ -59,9 +59,9 @@
 .price {
   font-size: 2rem;
 }
-.product-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 30rem);
-  grid-template-rows: repeat(2, 1fr);
-  grid-gap: 0.5rem;
-}
+.product-grid{
+  display:flex;
+  justify-content: space-around;
+  margin:2rem;
+  
+} 

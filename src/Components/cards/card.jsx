@@ -12,9 +12,9 @@ function ProductCard() {
  const RatingData=RatingFilter(CategoryData,ratings)
 
   return (
-    <div>
+    <div className="product-grid">
       {RatingData.map((item) => (
-        <div className="product-grid">
+        <div className="">
           <div class="card-exit">
             <div class="card-img">
               <img
