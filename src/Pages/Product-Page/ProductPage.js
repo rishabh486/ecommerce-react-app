@@ -8,8 +8,12 @@ function ProductPages() {
   return (
     <div>
       <Navbar />
-      <Sidebar />
-      <ProductCard />
+      <div className="product-display">
+        <Sidebar />
+        <div className="product-flex">
+          <ProductCard className="product-card" />
+        </div>
+      </div>
     </div>
   );
 }

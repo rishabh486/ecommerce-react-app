@@ -2,14 +2,19 @@ import React from "react";
 import { useProduct } from "../../context/product-context"
 import { favourite_icon } from "../../Assets/index";
 import "./card.css";
+import { filterByCategory, RatingFilter, SortingFilter } from "../../reducers/filter";
 function ProductCard() {
-  const { items } = useProduct();
- 
+  const { items,state } = useProduct();
+  const {filter}=state
+  const{ratings,sortBy,categoryName}=filter
+  const SortedData=SortingFilter(items,sortBy)
+  const CategoryData=filterByCategory(SortedData,categoryName)
+ const RatingData=RatingFilter(CategoryData,ratings)
 
   return (
-    <div>
-      {items.map((item) => (
-        <div className="product-grid">
+    <div className="product-grid">
+      {RatingData.map((item) => (
+        <div className="">
           <div class="card-exit">
             <div class="card-img">
               <img
@@ -19,8 +24,8 @@ function ProductCard() {
             </div>
             <div class="card-content">
               <p class="card-body">{item.title}</p>
-              <span class="price">$50</span>
-              <del class="original-price">$120</del>
+              <span class="price">${item.price}</span>
+              <del class="original-price">$5000</del>
               <b class="discount-price">24% OFF</b>
             </div>
             <div class="card-button">

@@ -1,0 +1,7 @@
+.product-flex{
+    width:100vw;
+    display:flex;
+}
+.product-display{
+    display:flex;
+}

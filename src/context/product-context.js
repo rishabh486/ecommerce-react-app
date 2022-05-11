@@ -1,11 +1,19 @@
 import axios from "axios";
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  useReducer,
+} from "react";
+import { reducerFn } from "../reducers/filter-reducer";
+import { initialState } from "../reducers/initial-state";
 
 const ProductDataContext = createContext();
 
 const ProductDataProvider = ({ children }) => {
   const [items, setItems] = useState([]);
-
+  const [state, dispatch] = useReducer(reducerFn, initialState);
   useEffect(() => {
     getData();
   }, []);
@@ -21,7 +29,7 @@ const ProductDataProvider = ({ children }) => {
   };
 
   return (
-    <ProductDataContext.Provider value={{ items }}>
+    <ProductDataContext.Provider value={{ items, state, dispatch }}>
       {children}
     </ProductDataContext.Provider>
   );
