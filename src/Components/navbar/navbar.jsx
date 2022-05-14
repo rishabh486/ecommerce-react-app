@@ -14,7 +14,7 @@ function Navbar() {
 
         <div class="leftside">
             <div class="links">
-                <a href="/index.html">Home</a>
+            <Link to="/product-page">  <a href="">Home</a></Link>
                 <Link to="/wishlist-page"> <a>Whishlist</a></Link>
                 <a href="/login.html">Login</a>
                 <a href="/signup.html">Signup</a>

@@ -3,7 +3,7 @@ import "./wishlist.css"
 import { useCart } from '../../context/cart-context'
 
 const Wishlist=()=> {
-    const{state:{wishlist}}=useCart()
+    const{state:{wishlist},dispatch}=useCart()
   return (
     <div>
         {wishlist.map((item)=>{
@@ -38,7 +38,7 @@ const Wishlist=()=> {
                   </div>
                   <button class="exit-button">
                     <span>
-                      <img src={favourite_icon} class="exit-button-cross" />
+                      <img src="" alt=""class="exit-button-cross" />
                     </span>
                   </button>
                 </div>
