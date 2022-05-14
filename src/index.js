@@ -5,6 +5,8 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { makeServer } from "./server";
 import { ProductDataProvider } from "./context/product-context";
+import { CartProvider } from "./context/cart-context";
+import { BrowserRouter as Router } from "react-router-dom";
 
 // Call make Server
 makeServer();
@@ -12,9 +14,13 @@ makeServer();
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <ProductDataProvider>
-      <App />
-    </ProductDataProvider>
+    <Router>
+      <ProductDataProvider>
+        <CartProvider>
+          <App />
+        </CartProvider>
+      </ProductDataProvider>
+    </Router>
   </React.StrictMode>
 );
 

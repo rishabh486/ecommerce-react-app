@@ -1,7 +1,10 @@
 import React from 'react'
 import  "./navbar.css"
+import {useCart} from "../../context/cart-context"
+import {Link} from "react-router-dom"
 
 function Navbar() {
+    const {state:{cartItems}}=useCart()
     return (
  <div> 
     <div className="navbar">
@@ -20,11 +23,11 @@ function Navbar() {
                         <div class="icon-badge">
                             <button type="button" class="icon-button" id="cart-button">
                                 <span>
-                                  <img class="icon-img" src="/Images/icons8-trolley-cart-64.png" />
+                                <Link to="/cart-page"> <img class="icon-img" src="/Images/icons8-trolley-cart-64.png" /></Link>
                                 </span>
                             </button>
                             <span class="icon-badge-number">
-                                0
+                                {cartItems}
                             </span>
 
                         </div>

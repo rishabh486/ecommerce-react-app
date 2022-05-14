@@ -1,10 +1,12 @@
 import React from "react";
 import { useProduct } from "../../context/product-context"
+import { useCart } from "../../context/cart-context";
 import { favourite_icon } from "../../Assets/index";
 import "./card.css";
 import { filterByCategory, RatingFilter, SortingFilter } from "../../reducers/filter";
 function ProductCard() {
   const { items,state } = useProduct();
+  const {dispatch}=useCart()
   const {filter}=state
   const{ratings,sortBy,categoryName}=filter
   const SortedData=SortingFilter(items,sortBy)
@@ -30,7 +32,7 @@ function ProductCard() {
             </div>
             <div class="card-button">
               <button
-               
+               onClick={()=>dispatch({type:"ADD_TO_CART",payload:items})}
                 class="button-container-button primary-button cart"
               >
                 Add To Cart
