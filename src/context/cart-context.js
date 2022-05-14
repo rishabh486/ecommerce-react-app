@@ -9,6 +9,8 @@ const CartProvider = ({ children }) => {
     totalPrice: 0,
     items: items,
     carts: [],
+    wishlist: [],
+    wishlistItems: 0,
   });
 
   return (

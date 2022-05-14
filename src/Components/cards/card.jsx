@@ -22,6 +22,7 @@ function ProductCard() {
               <img
                 src="https://assets.myntassets.com/h_720,q_90,w_540/v1/assets/images/16045848/2021/12/13/c42ef067-9fbe-4077-a48c-fca6331796ab1639383810735-Nike-Court-Vision-Low-Mens-Shoes-7251639383810387-1.jpg"
                 class="cross-image"
+                alt=""
               />
             </div>
             <div class="card-content">
@@ -42,7 +43,7 @@ function ProductCard() {
               <span>
                 <img
                  
-                  
+                  onClick={()=>dispatch({type:"ADD_TO_WISHLIST",payload:items})}
                   src={favourite_icon}
                   class="exit-button-cross"
                   alt=""
