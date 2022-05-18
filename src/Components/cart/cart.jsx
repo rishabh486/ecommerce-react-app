@@ -3,14 +3,12 @@ import {useCart} from "../../context/cart-context"
 import {useProduct} from "../../context/product-context"
 import "./cart.css"
 function Cart() {
-    const {state:{carts}}=useCart()
+    const {state:{carts},dispatch}=useCart()
     const {items}=useProduct()
-    console.log(carts)
+    const { _id, title, produced, price, quantity, image, ratings } =items
   return (
     <div>
-        
-   
- {carts.map((items)=>{
+        {carts.map((items)=>{
      return(
         
              <div class="card-horizontal card-margin">
@@ -34,8 +32,34 @@ function Cart() {
                     </del>
                     <b class="discount-price">24% OFF</b>
                 </div>
+                
+                <div className="quantity-container">
+                <button
+                  className="button button-secondary"
+                  onClick={() =>
+                    dispatch({ type: "INCREMENT_PRODUCT", payload: items })
+                  }
+                >
+                  +
+                </button>
+                <h2 className="card-ratings">{2}</h2>
+                <button
+                  className="button button-secondary"
+                  onClick={() =>
+                    quantity > 1
+                      ? dispatch({
+                          type: "DECREMENT_PRODUCT",
+                          payload: products,
+                        })
+                      : dispatch({ type: "REMOVE_CART", payload: _id })
+                  }
+                >
+                  -
+                </button>
+                </div>
                 <div class="btn-container-horizontal">
-                    <button class=" button-container-button primary-button">Remove from Cart</button>
+                    <button onClick={()=>dispatch({type:"REMOVE_FROM_CART",payload:_id})}
+                    class=" button-container-button primary-button">Remove from Cart</button>
 
                 </div>
                 <div class="btn-container-horizontal">

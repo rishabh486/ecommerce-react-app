@@ -5,7 +5,7 @@ import Wishlist from "../../Components/wishlist/wishlist";
 function WishlistPage() {
   return (
     <div>
-      <Navbar />
+      {/* <Navbar /> */}
       <Wishlist />
     </div>
   );

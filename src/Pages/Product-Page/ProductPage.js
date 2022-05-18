@@ -7,7 +7,7 @@ import "./Productpage.css";
 function ProductPages() {
   return (
     <div>
-      <Navbar />
+      {/* <Navbar /> */}
       <div className="product-display">
         <Sidebar />
         <div className="product-flex">

@@ -13,11 +13,12 @@ const sign = require("jwt-encode");
  * body contains {firstName, lastName, email, password}
  * */
 
-export const signupHandler = function (schema, request) {
+export const signupHandler = async function (schema, request) {
   const { email, password, ...rest } = JSON.parse(request.requestBody);
+  // console.log(request.requestBody);
   try {
     // check if email already exists
-    const foundUser = schema.users.findBy({ email });
+    const foundUser = await schema.users.findBy({ email });
     if (foundUser) {
       return new Response(
         422,
@@ -38,8 +39,13 @@ export const signupHandler = function (schema, request) {
       cart: [],
       wishlist: [],
     };
-    const createdUser = schema.users.create(newUser);
-    const encodedToken = sign({ _id, email }, process.env.REACT_APP_JWT_SECRET);
+    const createdUser = await schema.users.create(newUser);
+    // console.log(createdUser);
+    const encodedToken = await sign(
+      { _id, email },
+      process.env.REACT_APP_JWT_SECRET
+    );
+    // console.log(encodedToken);
     return new Response(201, {}, { createdUser, encodedToken });
   } catch (error) {
     return new Response(
@@ -58,10 +64,13 @@ export const signupHandler = function (schema, request) {
  * body contains {email, password}
  * */
 
-export const loginHandler = function (schema, request) {
+export const loginHandler = async function (schema, request) {
   const { email, password } = JSON.parse(request.requestBody);
+  console.log(request.requestBody);
   try {
-    const foundUser = schema.users.findBy({ email });
+    const foundUser = await schema.users.findBy({ email });
+    console.log(foundUser);
+
     if (!foundUser) {
       return new Response(
         404,
@@ -69,6 +78,7 @@ export const loginHandler = function (schema, request) {
         { errors: ["The email you entered is not Registered. Not Found error"] }
       );
     }
+    console.log(foundUser);
     if (password === foundUser.password) {
       const encodedToken = sign(
         { _id: foundUser._id, email },
