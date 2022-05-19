@@ -24,23 +24,23 @@ function App() {
       console.log("Not logged in");
     }
   }
-  const getData = async () => {
-    try {
-      const response = await axios.post("/api/auth/login", {
-        email: "rishabffffhhhvfddffhhh@gmail.com",
-        password: "rr@123",
-      });
-      if (response.status == 200) {
-        localStorage.setItem("ecom-token", response.data.encodedToken);
-      }
-      console.log(response);
-    } catch (e) {
-      console.log(e.response);
-    }
-  };
-  useEffect(() => {
-    // getData();
-  }, []);
+  // const getData = async () => {
+  //   try {
+  //     const response = await axios.post("/api/auth/login", {
+  //       email: "rishabffffhhhvfddffhhh@gmail.com",
+  //       password: "rr@123",
+  //     });
+  //     if (response.status == 200) {
+  //       localStorage.setItem("ecom-token", response.data.encodedToken);
+  //     }
+  //     console.log(response);
+  //   } catch (e) {
+  //     console.log(e.response);
+  //   }
+  // };
+  // useEffect(() => {
+  //   // getData();
+  // }, []);
   return (
     <div className="App">
       <Navbar tokenExists={tokenExists} />

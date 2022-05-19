@@ -3,12 +3,13 @@ import {useCart} from "../../context/cart-context"
 import {useProduct} from "../../context/product-context"
 import "./cart.css"
 function Cart() {
-    const {state:{carts},dispatch}=useCart()
+    const {state:{cart},dispatch}=useCart()
     const {items}=useProduct()
+    console.log(cart)
     const { _id, title, produced, price, quantity, image, ratings } =items
   return (
     <div>
-        {carts.map((items)=>{
+        {cart.map((items)=>{
      return(
         
              <div class="card-horizontal card-margin">
@@ -42,7 +43,7 @@ function Cart() {
                 >
                   +
                 </button>
-                <h2 className="card-ratings">{2}</h2>
+                <h2 className="card-ratings">{}</h2>
                 <button
                   className="button button-secondary"
                   onClick={() =>
