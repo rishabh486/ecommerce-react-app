@@ -18,7 +18,6 @@ const AuthProvider = ({ children }) => {
         });
         localStorage.setItem("ecom-token", response.data.encodedToken);
         localStorage.setItem("user", response.data.user);
-        successHandler();
       } catch (error) {
         console.log(error);
       }
@@ -39,7 +38,6 @@ const AuthProvider = ({ children }) => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     navigate("/");
-    notifyMessage("LogOut Succesfully");
   };
 
   return (

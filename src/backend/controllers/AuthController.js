@@ -1,6 +1,6 @@
 import { v4 as uuid } from "uuid";
 import { Response } from "miragejs";
-import { formatDate } from "../utils/authUtils";
+import { formatDate, requiresAuthGetUser } from "../utils/authUtils";
 const sign = require("jwt-encode");
 /**
  * All the routes related to Auth are present here.
@@ -40,12 +40,10 @@ export const signupHandler = async function (schema, request) {
       wishlist: [],
     };
     const createdUser = await schema.users.create(newUser);
-    // console.log(createdUser);
     const encodedToken = await sign(
       { _id, email },
       process.env.REACT_APP_JWT_SECRET
     );
-    // console.log(encodedToken);
     return new Response(201, {}, { createdUser, encodedToken });
   } catch (error) {
     return new Response(
@@ -69,8 +67,6 @@ export const loginHandler = async function (schema, request) {
   console.log(request.requestBody);
   try {
     const foundUser = await schema.users.findBy({ email });
-    console.log(foundUser);
-
     if (!foundUser) {
       return new Response(
         404,
@@ -78,7 +74,6 @@ export const loginHandler = async function (schema, request) {
         { errors: ["The email you entered is not Registered. Not Found error"] }
       );
     }
-    console.log(foundUser);
     if (password === foundUser.password) {
       const encodedToken = sign(
         { _id: foundUser._id, email },
@@ -96,6 +91,31 @@ export const loginHandler = async function (schema, request) {
         ],
       }
     );
+  } catch (error) {
+    return new Response(
+      500,
+      {},
+      {
+        error,
+      }
+    );
+  }
+};
+
+export const getCurrentUserHandler = async function (schema, request) {
+  const user = await requiresAuthGetUser.call(this, request);
+  try {
+    if (!user) {
+      new Response(
+        404,
+        {},
+        {
+          errors: ["The email you entered is not Registered. Not Found error"],
+        }
+      );
+    }
+
+    return new Response(200, {}, { user: user });
   } catch (error) {
     return new Response(
       500,

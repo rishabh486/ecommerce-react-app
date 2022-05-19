@@ -1,34 +1,60 @@
 import axios from "axios"
-export const AddToCart = (state, items) => {
-    (async (items) => {
-      try {
-        const response = await axios.post(
-          "/api/user/cart",
-          { items },
-          {
-            headers: {
-              authorization: localStorage.getItem("ecom-token"),
-            },
-          }
-        );
-      } catch (error) {
-        console.log(error.response);
-      }
-    })(items);
-    return { ...state, cart: [state.cart, { ...items, quantity: 1 }] };
+export const AddToCart =async (item, dispatch) => {
+    try{
+      const response = await axios.post(
+        "/api/user/cart",
+        { product:item },
+        {
+          headers: {
+            authorization: localStorage.getItem("ecom-token"),
+          },
+        }
+      );
+      dispatch({type:"ADD_TO_CART",payload:{cart:response.data.cart}})
+    }
+    catch(err){console.log(err);}
+      
+
   };
-  export const RemoveFromCart = (state, id) => {
-    (async (id) => {
+  export const RemoveFromCart = async ( id,dispatch) => {
+   
       try {
-        const response = await axios.delete(`/api/user/cart/:${id}`, {
+        const response = await axios.delete(`/api/user/cart/${id}`, {
           headers: {
             authorization: localStorage.getItem("ecom-token"),
           },
         });
+        dispatch({type:"REMOVE_FROM_CART",payload:{cart:response.data.cart}})
       } catch (error) {
         console.log(error);
       }
-    })(id);
-    const newCart = state.cart.filter((product) => product._id !== id);
-    return { ...state, cart: [...newCart] };
+    
   };
+  export const IncrementCartItem = async ( id,dispatch) => {
+   
+    try {
+      const response = await axios.post(`/api/user/cart/${id}`,{action:{type:"increment"}}, {
+        headers: {
+          authorization: localStorage.getItem("ecom-token"),
+        },
+      });
+      dispatch({type:"REMOVE_FROM_CART",payload:{cart:response.data.cart}})
+    } catch (error) {
+      console.log(error);
+    }
+  
+};
+export const DecrementCartItem = async ( id,dispatch) => {
+   
+  try {
+    const response = await axios.post(`/api/user/cart/${id}`,{action:{type:"decrement"}}, {
+      headers: {
+        authorization: localStorage.getItem("ecom-token"),
+      },
+    });
+    dispatch({type:"REMOVE_FROM_CART",payload:{cart:response.data.cart}})
+  } catch (error) {
+    console.log(error);
+  }
+
+};

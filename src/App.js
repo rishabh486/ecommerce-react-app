@@ -41,6 +41,23 @@ function App() {
   // useEffect(() => {
   //   // getData();
   // }, []);
+
+  const getCurrentUser = async () => {
+    try {
+      const response = await axios.get("/api/auth/user", {
+        headers: {
+          authorization: localStorage.getItem("ecom-token"),
+        },
+      });
+
+      console.log(response);
+    } catch (e) {
+      console.log(e.response);
+    }
+  };
+  useEffect(() => {
+    getCurrentUser();
+  }, []);
   return (
     <div className="App">
       <Navbar tokenExists={tokenExists} />

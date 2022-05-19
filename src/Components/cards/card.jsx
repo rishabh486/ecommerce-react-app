@@ -4,9 +4,11 @@ import { useCart } from "../../context/cart-context";
 import { favourite_icon } from "../../Assets/index";
 import "./card.css";
 import { filterByCategory, RatingFilter, SortingFilter } from "../../reducers/filter";
+import {AddToCart} from "../../reducers/cart-reducer"
 function ProductCard() {
   const { items,state } = useProduct();
-  const {dispatch}=useCart()
+  const {state:{cart},dispatch}=useCart()
+
   const {filter}=state
   const{ratings,sortBy,categoryName}=filter
   const SortedData=SortingFilter(items,sortBy)
@@ -32,12 +34,20 @@ function ProductCard() {
               <b class="discount-price">24% OFF</b>
             </div>
             <div class="card-button">
-              <button
-               onClick={()=>dispatch({type:"ADD_TO_CART",payload:items})}
+            {cart.filter((item_) => item_._id == item._id).length ? <button
+               onClick={()=>{
+                 
+              }}
                 class="button-container-button primary-button cart"
-              >
-                Add To Cart
-              </button>
+              >GO TO CART</button>  : <button
+               onClick={()=>{
+                AddToCart(item,dispatch)  
+              }}
+                class="button-container-button primary-button cart"
+              >ADD TO CART</button> }
+              
+                
+              
             </div>
             <button class="exit-button">
               <span>

@@ -4,8 +4,9 @@ import {useCart} from "../../context/cart-context"
 import {Link} from "react-router-dom"
 
 function Navbar({tokenExists}) {
-    const {state:{cartItems}}=useCart()
-
+    const {state}=useCart()
+    const {cart} = state
+console.log(state, "dlfkld")
     function getNavLinks(){
         if(tokenExists){
             return(
@@ -20,7 +21,7 @@ function Navbar({tokenExists}) {
                                 </span>
                             </button>
                             <span class="icon-badge-number">
-                                {cartItems}
+                                {cart?.length}
                             </span>
 
                         </div>

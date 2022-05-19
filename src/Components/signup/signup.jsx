@@ -29,7 +29,7 @@ function Signup() {
         e.preventDefault()
         try{
             const response=await axios.post(
-                '/api/auth/signup',
+                '/api/auth/login',
                 JSON.stringify({
                    
                     email,
@@ -38,9 +38,10 @@ function Signup() {
                 })
                 
             )
-            if (response.status == 201) {
+            console.log(response)
+            if (response.status == 200) {
                 localStorage.setItem("ecom-token", response.data.encodedToken);
-                window.location.href = "/"
+                // window.location.href = "/"
                 // navigate("/")
               }
             console.log(response)

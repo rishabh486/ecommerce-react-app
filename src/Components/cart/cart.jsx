@@ -1,6 +1,7 @@
 import React from 'react'
 import {useCart} from "../../context/cart-context"
 import {useProduct} from "../../context/product-context"
+import {RemoveFromCart, IncrementCartItem,DecrementCartItem} from "../../reducers/cart-reducer"
 import "./cart.css"
 function Cart() {
     const {state:{cart},dispatch}=useCart()
@@ -9,7 +10,7 @@ function Cart() {
     const { _id, title, produced, price, quantity, image, ratings } =items
   return (
     <div>
-        {cart.map((items)=>{
+        {cart?.map((items)=>{
      return(
         
              <div class="card-horizontal card-margin">
@@ -38,28 +39,25 @@ function Cart() {
                 <button
                   className="button button-secondary"
                   onClick={() =>
-                    dispatch({ type: "INCREMENT_PRODUCT", payload: items })
+                    IncrementCartItem(items._id,dispatch)
                   }
                 >
                   +
                 </button>
-                <h2 className="card-ratings">{}</h2>
+                <h2 className="card-ratings">{items.qty}</h2>
                 <button
                   className="button button-secondary"
                   onClick={() =>
-                    quantity > 1
-                      ? dispatch({
-                          type: "DECREMENT_PRODUCT",
-                          payload: products,
-                        })
-                      : dispatch({ type: "REMOVE_CART", payload: _id })
+                    items.qty > 1
+                      ? DecrementCartItem(items._id,dispatch)
+                      : RemoveFromCart(items._id,dispatch)
                   }
                 >
                   -
                 </button>
                 </div>
                 <div class="btn-container-horizontal">
-                    <button onClick={()=>dispatch({type:"REMOVE_FROM_CART",payload:_id})}
+                    <button onClick={()=>RemoveFromCart(items._id,dispatch)}
                     class=" button-container-button primary-button">Remove from Cart</button>
 
                 </div>
