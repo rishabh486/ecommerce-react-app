@@ -2,9 +2,42 @@ import React from 'react'
 import  "./navbar.css"
 import {useCart} from "../../context/cart-context"
 import {Link} from "react-router-dom"
-
+import {useAuth} from "../../context/auth-context"
 function Navbar() {
-    const {state:{cartItems}}=useCart()
+    const {state:{tokenExists}, LogOutHandler}=useAuth()
+    const {state, dispatch:cartDispatch}=useCart()
+    const {cart} = state
+    function getNavLinks(){
+        if(tokenExists){
+            return(
+                <>
+                    <Link to="/wishlist-page"> Whishlist</Link>
+                    <a>
+                    <div class="notification">
+                        <div class="icon-badge">
+                            <button type="button" class="icon-button" id="cart-button">
+                                <span>
+                                <Link to="/cart-page"> <img class="icon-img" src="/Images/icons8-trolley-cart-64.png" /></Link>
+                                </span>
+                            </button>
+                            <span class="icon-badge-number">
+                                {cart?.length}
+                            </span>
+
+                        </div>
+                    </div>
+                </a>
+                <button onClick={()=>LogOutHandler(cartDispatch)}>Logout</button>
+
+                </>
+            )
+        } else {
+            return<>
+                <Link to="/signin-page">Signin</Link> 
+                <Link to="/signup-page">Signup</Link> 
+</>
+        }
+    }
     return (
  <div> 
     <div className="navbar">
@@ -15,24 +48,7 @@ function Navbar() {
         <div class="leftside">
             <div class="links">
             <Link to="/product-page">  <a href="">Home</a></Link>
-                <Link to="/wishlist-page"> <a>Whishlist</a></Link>
-                <a href="/login.html">Login</a>
-                <a href="/signup.html">Signup</a>
-                <a>
-                    <div class="notification">
-                        <div class="icon-badge">
-                            <button type="button" class="icon-button" id="cart-button">
-                                <span>
-                                <Link to="/cart-page"> <img class="icon-img" src="/Images/icons8-trolley-cart-64.png" /></Link>
-                                </span>
-                            </button>
-                            <span class="icon-badge-number">
-                                {cartItems}
-                            </span>
-
-                        </div>
-                    </div>
-                </a>
+            {getNavLinks()}
             </div>
 
         </div>

@@ -1,16 +1,15 @@
 import React from 'react'
 import {useCart} from "../../context/cart-context"
 import {useProduct} from "../../context/product-context"
+import {RemoveFromCart, IncrementCartItem,DecrementCartItem,AddToWishlist} from "../../reducers/cart-reducer"
 import "./cart.css"
 function Cart() {
-    const {state:{carts}}=useCart()
+    const {state:{cart},dispatch}=useCart()
     const {items}=useProduct()
-    console.log(carts)
+    const { _id, title, produced, price, quantity, image, ratings } =items
   return (
     <div>
-        
-   
- {carts.map((items)=>{
+        {cart?.map((items)=>{
      return(
         
              <div class="card-horizontal card-margin">
@@ -34,12 +33,37 @@ function Cart() {
                     </del>
                     <b class="discount-price">24% OFF</b>
                 </div>
+                
+                <div className="quantity-container">
+                <button
+                  className="button button-secondary"
+                  onClick={() =>
+                    IncrementCartItem(items._id,dispatch)
+                  }
+                >
+                  +
+                </button>
+                <h2 className="card-ratings">{items.qty}</h2>
+                <button
+                  className="button button-secondary"
+                  onClick={() =>
+                    items.qty > 1
+                      ? DecrementCartItem(items._id,dispatch)
+                      : RemoveFromCart(items._id,dispatch)
+                  }
+                >
+                  -
+                </button>
+                </div>
                 <div class="btn-container-horizontal">
-                    <button class=" button-container-button primary-button">Remove from Cart</button>
+                    <button onClick={()=>RemoveFromCart(items._id,dispatch)}
+                    class=" button-container-button primary-button">Remove from Cart</button>
 
                 </div>
                 <div class="btn-container-horizontal">
-                    <button class=" button-container-button secondary-button">Add to wishlist</button>
+                    <button 
+                    onClick={()=>AddToWishlist(items,dispatch)}
+                    class=" button-container-button secondary-button">Add to wishlist</button>
                 </div>
             </div>
         

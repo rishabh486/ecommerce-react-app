@@ -1,33 +1,93 @@
-export function cartReducer(state, action) {
-    switch (action.type) {
-      case "ADD_TO_CART":
-        return {
-          ...state,
-          cartItems: state.cartItems + 1,
-          totalPrice: state.totalPrice + action.payload.price,
-          carts: [...state.carts, { ...action.payload }],
-        };
-     
-      case "REMOVE_FROM_CART":
-        return {
-          ...state,
-          cartItems: state.cartItems - 1,
-          totalPrice: state.totalPrice - action.payload.price,
-        };
-        case "ADD_TO_WISHLIST":
-          return {
-            ...state,
-    
-            wishlist: [...state.wishlist, { ...action.payload }],
-            wishlistItems:state.wishlistItems +1,
-          };
-        case "REMOVE_FROM_WISHLIST":
-          return {
-            ...state,
-            wishlistItems: state.wishlistItems - 1,
-           
-          };
-      default:
-        return state;
+import axios from "axios"
+export const AddToCart =async (item, dispatch) => {
+    try{
+      const response = await axios.post(
+        "/api/user/cart",
+        { product:item },
+        {
+          headers: {
+            authorization: localStorage.getItem("ecom-token"),
+          },
+        }
+      );
+      dispatch({type:"ADD_TO_CART",payload:{cart:response.data.cart}})
     }
+    catch(err){console.log(err);}
+      
+
+  };
+  export const RemoveFromCart = async ( id,dispatch) => {
+   
+      try {
+        const response = await axios.delete(`/api/user/cart/${id}`, {
+          headers: {
+            authorization: localStorage.getItem("ecom-token"),
+          },
+        });
+        dispatch({type:"REMOVE_FROM_CART",payload:{cart:response.data.cart}})
+      } catch (error) {
+        console.log(error);
+      }
+    
+  };
+  export const IncrementCartItem = async ( id,dispatch) => {
+   
+    try {
+      const response = await axios.post(`/api/user/cart/${id}`,{action:{type:"increment"}}, {
+        headers: {
+          authorization: localStorage.getItem("ecom-token"),
+        },
+      });
+      dispatch({type:"REMOVE_FROM_CART",payload:{cart:response.data.cart}})
+    } catch (error) {
+      console.log(error);
+    }
+  
+};
+export const DecrementCartItem = async ( id,dispatch) => {
+   
+  try {
+    const response = await axios.post(`/api/user/cart/${id}`,{action:{type:"decrement"}}, {
+      headers: {
+        authorization: localStorage.getItem("ecom-token"),
+      },
+    });
+    dispatch({type:"REMOVE_FROM_CART",payload:{cart:response.data.cart}})
+  } catch (error) {
+    console.log(error);
   }
+
+};
+export const AddToWishlist =async (item, dispatch) => {
+  
+  try{
+    const response = await axios.post(
+    "/api/user/wishlist",
+       { product:item },
+      {
+        headers: {
+          authorization: localStorage.getItem("ecom-token"),
+        },
+      }
+    );
+    dispatch({type:"ADD_TO_WISHLIST",payload:{wishlist:response.data.wishlist}})
+  }
+ 
+  catch(err){console.log(err);}
+    
+
+};
+// export const RemoveFromWishlist = async ( id,dispatch) => {
+   
+//   try {
+//     const response = await axios.delete(`/api/user/wishlist/${id}`, {
+//       headers: {
+//         authorization: localStorage.getItem("ecom-token"),
+//       },
+//     });
+//     dispatch({type:"REMOVE_FROM_WISHLIST",payload:{wishlist:response.data.wishlist}})
+//   } catch (error) {
+//     console.log(error);
+//   }
+
+// };

@@ -5,7 +5,7 @@ import Cart from "../../Components/cart/cart";
 function CartPage() {
   return (
     <div>
-      <Navbar />
+      {/* <Navbar /> */}
       <Cart />
     </div>
   );

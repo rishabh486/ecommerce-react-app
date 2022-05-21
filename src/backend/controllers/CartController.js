@@ -32,8 +32,8 @@ export const getCartItemsHandler = function (schema, request) {
  * body contains {product}
  * */
 
-export const addItemToCartHandler = function (schema, request) {
-  const userId = requiresAuth.call(this, request);
+export const addItemToCartHandler = async function (schema, request) {
+  const userId = await requiresAuth.call(this, request);
   try {
     if (!userId) {
       new Response(
@@ -44,7 +44,8 @@ export const addItemToCartHandler = function (schema, request) {
         }
       );
     }
-    const userCart = schema.users.findBy({ _id: userId }).cart;
+    const user = schema.users.findBy({ _id: userId });
+    const userCart = user.cart;
     const { product } = JSON.parse(request.requestBody);
     userCart.push({
       ...product,
@@ -53,7 +54,7 @@ export const addItemToCartHandler = function (schema, request) {
       qty: 1,
     });
     this.db.users.update({ _id: userId }, { cart: userCart });
-    return new Response(201, {}, { cart: userCart });
+    return new Response(201, {}, { cart: userCart, user: user });
   } catch (error) {
     return new Response(
       500,
@@ -70,8 +71,8 @@ export const addItemToCartHandler = function (schema, request) {
  * send DELETE Request at /api/user/cart/:productId
  * */
 
-export const removeItemFromCartHandler = function (schema, request) {
-  const userId = requiresAuth.call(this, request);
+export const removeItemFromCartHandler = async function (schema, request) {
+  const userId = await requiresAuth.call(this, request);
   try {
     if (!userId) {
       new Response(
@@ -104,9 +105,9 @@ export const removeItemFromCartHandler = function (schema, request) {
  * body contains {action} (whose 'type' can be increment or decrement)
  * */
 
-export const updateCartItemHandler = function (schema, request) {
+export const updateCartItemHandler = async function (schema, request) {
   const productId = request.params.productId;
-  const userId = requiresAuth.call(this, request);
+  const userId = await requiresAuth.call(this, request);
   try {
     if (!userId) {
       new Response(

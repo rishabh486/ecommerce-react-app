@@ -1,6 +1,6 @@
 import { v4 as uuid } from "uuid";
 import { Response } from "miragejs";
-import { formatDate } from "../utils/authUtils";
+import { formatDate, requiresAuthGetUser } from "../utils/authUtils";
 const sign = require("jwt-encode");
 /**
  * All the routes related to Auth are present here.
@@ -13,11 +13,11 @@ const sign = require("jwt-encode");
  * body contains {firstName, lastName, email, password}
  * */
 
-export const signupHandler = function (schema, request) {
+export const signupHandler = async function (schema, request) {
   const { email, password, ...rest } = JSON.parse(request.requestBody);
   try {
     // check if email already exists
-    const foundUser = schema.users.findBy({ email });
+    const foundUser = await schema.users.findBy({ email });
     if (foundUser) {
       return new Response(
         422,
@@ -38,8 +38,11 @@ export const signupHandler = function (schema, request) {
       cart: [],
       wishlist: [],
     };
-    const createdUser = schema.users.create(newUser);
-    const encodedToken = sign({ _id, email }, process.env.REACT_APP_JWT_SECRET);
+    const createdUser = await schema.users.create(newUser);
+    const encodedToken = await sign(
+      { _id, email },
+      process.env.REACT_APP_JWT_SECRET
+    );
     return new Response(201, {}, { createdUser, encodedToken });
   } catch (error) {
     return new Response(
@@ -58,10 +61,12 @@ export const signupHandler = function (schema, request) {
  * body contains {email, password}
  * */
 
-export const loginHandler = function (schema, request) {
+export const loginHandler = async function (schema, request) {
   const { email, password } = JSON.parse(request.requestBody);
+  console.log(request.requestBody);
+  console.log(schema.users.all);
   try {
-    const foundUser = schema.users.findBy({ email });
+    const foundUser = await schema.users.findBy({ email });
     if (!foundUser) {
       return new Response(
         404,
@@ -86,6 +91,31 @@ export const loginHandler = function (schema, request) {
         ],
       }
     );
+  } catch (error) {
+    return new Response(
+      500,
+      {},
+      {
+        error,
+      }
+    );
+  }
+};
+
+export const getCurrentUserHandler = async function (schema, request) {
+  const user = await requiresAuthGetUser.call(this, request);
+  try {
+    if (!user) {
+      new Response(
+        404,
+        {},
+        {
+          errors: ["The email you entered is not Registered. Not Found error"],
+        }
+      );
+    }
+
+    return new Response(200, {}, { user: user });
   } catch (error) {
     return new Response(
       500,

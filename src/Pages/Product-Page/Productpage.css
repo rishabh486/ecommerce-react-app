@@ -1,6 +1,8 @@
 .product-flex{
     width:100vw;
     display:flex;
+    margin-left: 25rem;
+    margin-top: 10vh;
 }
 .product-display{
     display:flex;

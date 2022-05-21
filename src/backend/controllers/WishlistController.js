@@ -33,8 +33,8 @@ export const getWishlistItemsHandler = function (schema, request) {
  * body contains {product}
  * */
 
-export const addItemToWishlistHandler = function (schema, request) {
-  const userId = requiresAuth.call(this, request);
+export const addItemToWishlistHandler = async function (schema, request) {
+  const userId = await requiresAuth.call(this, request);
   try {
     if (!userId) {
       new Response(
@@ -45,7 +45,8 @@ export const addItemToWishlistHandler = function (schema, request) {
         }
       );
     }
-    const userWishlist = schema.users.findBy({ _id: userId }).wishlist;
+    const user = schema.users.findBy({ _id: userId });
+    const userWishlist = user.wishlist;
     const { product } = JSON.parse(request.requestBody);
     userWishlist.push({
       ...product,
@@ -53,7 +54,7 @@ export const addItemToWishlistHandler = function (schema, request) {
       updatedAt: formatDate(),
     });
     this.db.users.update({ _id: userId }, { wishlist: userWishlist });
-    return new Response(201, {}, { wishlist: userWishlist });
+    return new Response(201, {}, { wishlist: userWishlist, user: user });
   } catch (error) {
     return new Response(
       500,
@@ -71,8 +72,8 @@ export const addItemToWishlistHandler = function (schema, request) {
  * body contains {product}
  * */
 
-export const removeItemFromWishlistHandler = function (schema, request) {
-  const userId = requiresAuth.call(this, request);
+export const removeItemFromWishlistHandler = async function (schema, request) {
+  const userId = await requiresAuth.call(this, request);
   try {
     if (!userId) {
       new Response(
