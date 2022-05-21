@@ -6,6 +6,19 @@ export function cartReducer(state, action) {
       return { ...state, cart: action.payload.cart };
     case "ADD_TO_WISHLIST":
       return { ...state, wishlist: action.payload.wishlist };
+    case "RESET":
+      return {
+        totalPrice: 0,
+        cart: [],
+        wishlist: [],
+        wishlistItems: 0,
+      };
+    case "SET_CART":
+      return {
+        ...state,
+        cart: action.payload.cart,
+        wishlist: action.payload.wishlist,
+      };
     default:
       return state;
   }

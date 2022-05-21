@@ -5,7 +5,7 @@ import {Link} from "react-router-dom"
 import {useAuth} from "../../context/auth-context"
 function Navbar() {
     const {state:{tokenExists}, LogOutHandler}=useAuth()
-    const {state}=useCart()
+    const {state, dispatch:cartDispatch}=useCart()
     const {cart} = state
     function getNavLinks(){
         if(tokenExists){
@@ -27,13 +27,14 @@ function Navbar() {
                         </div>
                     </div>
                 </a>
-                <p onClick={LogOutHandler}>Logout</p>
+                <button onClick={()=>LogOutHandler(cartDispatch)}>Logout</button>
 
                 </>
             )
         } else {
             return<>
                 <Link to="/signin-page"><a >Signin</a></Link> 
+                <Link to="/signup-page"><a >Signup</a></Link> 
 </>
         }
     }
@@ -48,24 +49,6 @@ function Navbar() {
             <div class="links">
             <Link to="/product-page">  <a href="">Home</a></Link>
             {getNavLinks()}
-                {/* <Link to="/wishlist-page"> <a>Whishlist</a></Link> */}
-                {/* <a href="/login.html">Login</a> */}
-                {/* <Link to="/signup-page"><a href="/signup.html">Signup</a></Link>  */}
-                {/* <a>
-                    <div class="notification">
-                        <div class="icon-badge">
-                            <button type="button" class="icon-button" id="cart-button">
-                                <span>
-                                <Link to="/cart-page"> <img class="icon-img" src="/Images/icons8-trolley-cart-64.png" /></Link>
-                                </span>
-                            </button>
-                            <span class="icon-badge-number">
-                                {cartItems}
-                            </span>
-
-                        </div>
-                    </div>
-                </a> */}
             </div>
 
         </div>

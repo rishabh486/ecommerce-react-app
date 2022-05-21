@@ -1,12 +1,13 @@
 import React from 'react'
-import signup from "./signup.css"
+import  "./signup.css"
 import {useState} from "react"
 import axios from "axios"
 import { useNavigate } from "react-router-dom";
-
+import {useAuth} from "../../context/auth-context"
 
 
 function Signup() {
+    const {SignUpHandler}=useAuth()
     const navigate = useNavigate();
     const [email,setEmail]=useState('')
     const [password,setPassword]=useState('')
@@ -22,34 +23,7 @@ function Signup() {
         setChecked(e.target.value)
        console.log(e)
     }
-    
-    console.log(password)
-    // console.log(checked)
-    const submitChange= async(e)=>{
-        e.preventDefault()
-        try{
-            const response=await axios.post(
-                '/api/auth/login',
-                JSON.stringify({
-                   
-                    email,
-                    password
-
-                })
-                
-            )
-            console.log(response)
-            if (response.status == 200) {
-                localStorage.setItem("ecom-token", response.data.encodedToken);
-                // window.location.href = "/"
-                // navigate("/")
-              }
-            console.log(response)
-        }
-        catch(err){
-            console.log(err.response)
-        }
-    }
+   
 
   return (
     <div> <div class="wrapper-signup">
@@ -64,14 +38,10 @@ function Signup() {
                 <label for="password">Password</label>
                 <input  value={password} onChange={passwordChange}id='password' type="text" class='form-inp' placeholder='********' />
             </div>
-            {/* <div class='user-settings'>
-                <div class='remember-box'>
-                    <input onChange={checkChange}value={checked}type="checkbox" id='remember-checkbox' />
-                    <label for="remember-checkbox">I accept all terms & conditions</label>
-                </div>
-
-            </div> */}
-            <button onClick={submitChange} type='submit' class='button-container-button primary-button'>Create New Account</button>
+            <button onClick={(event) => {
+              event.preventDefault();
+              console.log("cvkfdl")
+              SignUpHandler({ email: email, password: password })}} type='submit' class='button-container-button primary-button'>Create New Account</button>
         </form>
     </div>
 </div>

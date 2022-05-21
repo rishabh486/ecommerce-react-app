@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import "./App.css";
 import ProductPages from "./Pages/Product-Page/ProductPage";
 import CartPage from "./Pages/Cart-Page/CartPage";
@@ -7,63 +6,10 @@ import WishlistPage from "./Pages/Wishlist-Page/WishlistPage";
 import SignupPage from "./Pages/Signup-Page/Signup";
 import SignInPage from "./Pages/SignIn-Page/SignInPage";
 import Navbar from "./Components/navbar/navbar";
-import axios from "axios";
-import { useAuth } from "./context/auth-context";
-
 function App() {
-  const { tokenExists } = useAuth();
-  // const [tokenExists, setTokenExists] = useState(false);
-  // useEffect(() => {
-  //   isAuthenticated();
-  // }, []);
-
-  // async function isAuthenticated() {
-  //   const token = await localStorage.getItem("ecom-token");
-  //   if (token) {
-  //     setTokenExists(true);
-  //     console.log("logged in");
-  //   } else {
-  //     setTokenExists(false);
-  //     console.log("Not logged in");
-  //   }
-  // }
-  // const getData = async () => {
-  //   try {
-  //     const response = await axios.post("/api/auth/login", {
-  //       email: "rishabffffhhhvfddffhhh@gmail.com",
-  //       password: "rr@123",
-  //     });
-  //     if (response.status == 200) {
-  //       localStorage.setItem("ecom-token", response.data.encodedToken);
-  //     }
-  //     console.log(response);
-  //   } catch (e) {
-  //     console.log(e.response);
-  //   }
-  // };
-  // useEffect(() => {
-  //   // getData();
-  // }, []);
-
-  const getCurrentUser = async () => {
-    try {
-      const response = await axios.get("/api/auth/user", {
-        headers: {
-          authorization: localStorage.getItem("ecom-token"),
-        },
-      });
-
-      console.log(response);
-    } catch (e) {
-      console.log(e.response);
-    }
-  };
-  useEffect(() => {
-    getCurrentUser();
-  }, []);
   return (
     <div className="App">
-      <Navbar tokenExists={tokenExists} />
+      <Navbar />
       <Routes>
         <Route path="/" element={<ProductPages />} />
         <Route path="/signup-page" element={<SignupPage />} />
