@@ -4,18 +4,16 @@ import { useCart } from "../../context/cart-context";
 import { favourite_icon } from "../../Assets/index";
 import "./card.css";
 import { filterByCategory, RatingFilter, SortingFilter } from "../../reducers/filter";
-import {AddToCart} from "../../reducers/cart-reducer"
+import {AddToCart, AddToWishlist} from "../../reducers/cart-reducer"
 function ProductCard() {
   const { items,state } = useProduct();
   const {state:{cart},dispatch}=useCart()
-
   const {filter}=state
   const{ratings,sortBy,categoryName}=filter
   const SortedData=SortingFilter(items,sortBy)
   const CategoryData=filterByCategory(SortedData,categoryName)
  const RatingData=RatingFilter(CategoryData,ratings)
-
-  return (
+ return (
     <div className="product-grid">
       {RatingData.map((item) => (
         <div className="">
@@ -53,7 +51,9 @@ function ProductCard() {
               <span>
                 <img
                  
-                  onClick={()=>dispatch({type:"ADD_TO_WISHLIST",payload:items})}
+                 onClick={()=>{
+                  AddToWishlist(item,dispatch)  
+                }}
                   src={favourite_icon}
                   class="exit-button-cross"
                   alt=""

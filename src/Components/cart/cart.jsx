@@ -1,7 +1,7 @@
 import React from 'react'
 import {useCart} from "../../context/cart-context"
 import {useProduct} from "../../context/product-context"
-import {RemoveFromCart, IncrementCartItem,DecrementCartItem} from "../../reducers/cart-reducer"
+import {RemoveFromCart, IncrementCartItem,DecrementCartItem,AddToWishlist} from "../../reducers/cart-reducer"
 import "./cart.css"
 function Cart() {
     const {state:{cart},dispatch}=useCart()
@@ -62,7 +62,9 @@ function Cart() {
 
                 </div>
                 <div class="btn-container-horizontal">
-                    <button class=" button-container-button secondary-button">Add to wishlist</button>
+                    <button 
+                    onClick={()=>AddToWishlist(items,dispatch)}
+                    class=" button-container-button secondary-button">Add to wishlist</button>
                 </div>
             </div>
         

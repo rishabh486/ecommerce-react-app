@@ -2,11 +2,11 @@ import React from 'react'
 import  "./navbar.css"
 import {useCart} from "../../context/cart-context"
 import {Link} from "react-router-dom"
-
-function Navbar({tokenExists}) {
+import {useAuth} from "../../context/auth-context"
+function Navbar() {
+    const {state:{tokenExists}, LogOutHandler}=useAuth()
     const {state}=useCart()
     const {cart} = state
-console.log(state, "dlfkld")
     function getNavLinks(){
         if(tokenExists){
             return(
@@ -27,13 +27,13 @@ console.log(state, "dlfkld")
                         </div>
                     </div>
                 </a>
-                <Link to="/signup-page"><a href="/">Logout</a></Link> 
+                <p onClick={LogOutHandler}>Logout</p>
 
                 </>
             )
         } else {
             return<>
-                <Link to="/signup-page"><a href="/signup.html">Signup</a></Link> 
+                <Link to="/signin-page"><a >Signin</a></Link> 
 </>
         }
     }

@@ -6,6 +6,7 @@ const Wishlist=()=> {
     const{state:{wishlist},dispatch}=useCart()
   return (
     <div>
+      <h1>Wishlist({wishlist?.length})</h1>
         {wishlist.map((item)=>{
             return(
                 <div className="product-grid">

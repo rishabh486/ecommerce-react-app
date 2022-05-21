@@ -58,3 +58,36 @@ export const DecrementCartItem = async ( id,dispatch) => {
   }
 
 };
+export const AddToWishlist =async (item, dispatch) => {
+  
+  try{
+    const response = await axios.post(
+    "/api/user/wishlist",
+       { product:item },
+      {
+        headers: {
+          authorization: localStorage.getItem("ecom-token"),
+        },
+      }
+    );
+    dispatch({type:"ADD_TO_WISHLIST",payload:{wishlist:response.data.wishlist}})
+  }
+ 
+  catch(err){console.log(err);}
+    
+
+};
+// export const RemoveFromWishlist = async ( id,dispatch) => {
+   
+//   try {
+//     const response = await axios.delete(`/api/user/wishlist/${id}`, {
+//       headers: {
+//         authorization: localStorage.getItem("ecom-token"),
+//       },
+//     });
+//     dispatch({type:"REMOVE_FROM_WISHLIST",payload:{wishlist:response.data.wishlist}})
+//   } catch (error) {
+//     console.log(error);
+//   }
+
+// };

@@ -65,6 +65,7 @@ export const signupHandler = async function (schema, request) {
 export const loginHandler = async function (schema, request) {
   const { email, password } = JSON.parse(request.requestBody);
   console.log(request.requestBody);
+  console.log(schema.users.all);
   try {
     const foundUser = await schema.users.findBy({ email });
     if (!foundUser) {

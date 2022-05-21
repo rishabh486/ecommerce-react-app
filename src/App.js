@@ -5,25 +5,28 @@ import CartPage from "./Pages/Cart-Page/CartPage";
 import { Routes, Route } from "react-router-dom";
 import WishlistPage from "./Pages/Wishlist-Page/WishlistPage";
 import SignupPage from "./Pages/Signup-Page/Signup";
+import SignInPage from "./Pages/SignIn-Page/SignInPage";
 import Navbar from "./Components/navbar/navbar";
 import axios from "axios";
+import { useAuth } from "./context/auth-context";
 
 function App() {
-  const [tokenExists, setTokenExists] = useState(false);
-  useEffect(() => {
-    isAuthenticated();
-  }, []);
+  const { tokenExists } = useAuth();
+  // const [tokenExists, setTokenExists] = useState(false);
+  // useEffect(() => {
+  //   isAuthenticated();
+  // }, []);
 
-  async function isAuthenticated() {
-    const token = await localStorage.getItem("ecom-token");
-    if (token) {
-      setTokenExists(true);
-      console.log("logged in");
-    } else {
-      setTokenExists(false);
-      console.log("Not logged in");
-    }
-  }
+  // async function isAuthenticated() {
+  //   const token = await localStorage.getItem("ecom-token");
+  //   if (token) {
+  //     setTokenExists(true);
+  //     console.log("logged in");
+  //   } else {
+  //     setTokenExists(false);
+  //     console.log("Not logged in");
+  //   }
+  // }
   // const getData = async () => {
   //   try {
   //     const response = await axios.post("/api/auth/login", {
@@ -64,6 +67,7 @@ function App() {
       <Routes>
         <Route path="/" element={<ProductPages />} />
         <Route path="/signup-page" element={<SignupPage />} />
+        <Route path="/signin-page" element={<SignInPage />} />
         <Route path="/product-page" element={<ProductPages />} />
         <Route path="/cart-page" element={<CartPage />} />
         <Route path="/wishlist-page" element={<WishlistPage />} />

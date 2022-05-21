@@ -1,23 +1,26 @@
 import axios from "axios";
-import { createContext, useState, useContext } from "react";
+import { createContext, useState, useContext, useReducer } from "react";
 import { useNavigate } from "react-router-dom";
+import { authReducer } from "../reducers/reducer";
+
 const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
-  const [tokenExists, setTokenExists] = useState(
-    localStorage.getItem("ecom-token")
-  );
+
+  const [state, dispatch] = useReducer(authReducer, {
+    tokenExists: false,
+  });
 
   const SignUpHandler = () => {
     async (params) => {
       try {
         const response = await axios.post("/api/auth/signup", {
-          params,
+          ...params,
         });
         localStorage.setItem("ecom-token", response.data.encodedToken);
         localStorage.setItem("user", response.data.user);
+        dispatch({ type: "TOKEN_EXISTS" });
       } catch (error) {
         console.log(error);
       }
@@ -26,23 +29,33 @@ const AuthProvider = ({ children }) => {
 
   const LoginHandler = async (params) => {
     try {
-      const response = await axios.post("/api/auth/login", params);
-      localStorage.setItem("token", response.data.encodedToken);
-      localStorage.setItem("user", JSON.stringify(response.data.foundUser));
+      const response = await axios.post("/api/auth/login", { ...params });
+      localStorage.setItem("ecom-token", response.data.encodedToken);
+      // localStorage.setItem("user", JSON.stringify(response.data.foundUser));
+      console.log(response);
+      dispatch({ type: "TOKEN_EXISTS" });
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
   };
 
   const LogOutHandler = () => {
-    localStorage.removeItem("token");
+    localStorage.removeItem("ecom-token");
     localStorage.removeItem("user");
+    dispatch({ type: "TOKEN_REMOVED" });
     navigate("/");
   };
 
   return (
     <AuthContext.Provider
-      value={{ tokenExists, user, LoginHandler, SignUpHandler, LogOutHandler }}
+      value={{
+        state,
+        dispatch,
+        LoginHandler,
+        SignUpHandler,
+        LogOutHandler,
+      }}
     >
       {children}
     </AuthContext.Provider>
