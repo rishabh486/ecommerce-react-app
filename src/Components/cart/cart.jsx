@@ -6,7 +6,6 @@ import "./cart.css"
 function Cart() {
     const {state:{cart},dispatch}=useCart()
     const {items}=useProduct()
-    console.log(cart)
     const { _id, title, produced, price, quantity, image, ratings } =items
   return (
     <div>

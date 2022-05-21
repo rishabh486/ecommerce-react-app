@@ -11,7 +11,7 @@ function Navbar() {
         if(tokenExists){
             return(
                 <>
-                    <Link to="/wishlist-page"> <a>Whishlist</a></Link>
+                    <Link to="/wishlist-page"> Whishlist</Link>
                     <a>
                     <div class="notification">
                         <div class="icon-badge">
@@ -33,8 +33,8 @@ function Navbar() {
             )
         } else {
             return<>
-                <Link to="/signin-page"><a >Signin</a></Link> 
-                <Link to="/signup-page"><a >Signup</a></Link> 
+                <Link to="/signin-page">Signin</Link> 
+                <Link to="/signup-page">Signup</Link> 
 </>
         }
     }
